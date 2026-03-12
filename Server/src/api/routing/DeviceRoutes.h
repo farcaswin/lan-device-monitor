@@ -3,7 +3,7 @@
 #include "RouteGroup.h"
 #include <nlohmann/json.hpp>
 
-using nlohmann::json;
+using json = nlohmann::json;
 
 class DeviceRoutes : public RouteGroup{
 public:
@@ -15,10 +15,10 @@ private:
 
     // Handlers
     void handle_get_all_devices(const httplib::Request&, httplib::Response&);
-    void handle_get_device(const httplib::Request&, httplib::Response&);
     void handle_set_target(const httplib::Request&, httplib::Response&);
     void handle_get_target(const httplib::Request&, httplib::Response&);
     void handle_clear_target(const httplib::Request&, httplib::Response&);
+    void handle_get_device(const httplib::Request&, httplib::Response&);
 
     // Serializare json
     static json device_to_json(const Device& dev);

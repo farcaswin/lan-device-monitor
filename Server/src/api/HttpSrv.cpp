@@ -1,7 +1,8 @@
 #include "HttpSrv.h"
 #include <iostream>
+#include <httplib.h>
 
-HtppSrv::HttpSrv(const std::string& host, int port) : host_(host), port_(port) {}
+HttpSrv::HttpSrv(const std::string& host, int port) : host_(host), port_(port) {}
 
 void HttpSrv::add_route_group(std::unique_ptr<RouteGroup> group){
     route_groups_.push_back(std::move(group));
@@ -17,9 +18,9 @@ void HttpSrv::setup_global_handlers(){
 
             if (req.method == "OPTIONS"){
                 res.status = 204;
-                return httplib::Server::HandleResponse::Handled;
+                return httplib::Server::HandlerResponse::Handled;
             }
-            return httplib::Server::HandleResponse::Unhandled;
+            return httplib::Server::HandlerResponse::Unhandled;
         } 
     );
 
@@ -33,4 +34,18 @@ void HttpSrv::setup_global_handlers(){
         }
     );
 
+}
+
+void HttpSrv::start(){
+    setup_global_handlers();
+
+    for (auto& group : route_groups_){
+        group->register_routes(server_);
+    }
+
+    server_.listen(host_.c_str(), port_);
+}
+
+void HttpSrv::stop(){   
+    server_.stop();
 }

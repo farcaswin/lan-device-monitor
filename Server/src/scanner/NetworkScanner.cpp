@@ -66,7 +66,7 @@ std::vector<Device> NetworkScanner::parse_hosts_xml(
         {
             in_host = true;
             current = Device{};
-            continue;
+            // nu facem continue: <status> poate fi pe aceeasi linie
         }
 
         if (line.find("</host>") != std::string::npos) {
@@ -182,15 +182,19 @@ std::string NetworkScanner::compute_subnet_cidr(
 }
 
 std::vector<Device> NetworkScanner::scan_targets(const std::string& subnet){
-    std::string cmd = "nmap -sn " + subnet + " -oX -";
+    std::string cmd = "sudo nmap -sn " + subnet + " -oX -";
 
+    std::cerr << "[DEBUG] scan_targets cmd: " << cmd << "\n";
     std::string xml = exec_cmd(cmd);
+    std::cerr << "[DEBUG] nmap output (" << xml.size() << " bytes):\n" << xml.substr(0, 500) << "\n";
 
-    return parse_hosts_xml(xml);
+    auto result = parse_hosts_xml(xml);
+    std::cerr << "[DEBUG] parsed " << result.size() << " devices\n";
+    return result;
 }
 
 std::vector<OpenPort> NetworkScanner::scan_ports(const std::string& target_ip, const std::string& port_range){
-    std::string cmd = "nmap -sV -T4 --open "
+    std::string cmd = "sudo nmap -sV -T4 --open "
                     + target_ip
                     + " -p " + port_range
                     + " -oX -";

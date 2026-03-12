@@ -46,6 +46,7 @@ ScanNetworkResponse DeviceService::scan_network(const ScanNetworkRequest& req){
     if (subnet.empty()){
         auto info = get_network_info();
         subnet = info.subnet_cidr;
+        std::cout << "[DeviceService] Subnet empty in request, dar gasit din info: " + subnet + "\n";
     }
     else {
         validate_subnet(subnet);

@@ -1,5 +1,13 @@
-add_library(api_lib STATIC HttpSrv.cpp routing/DeviceRoutes.cpp)
+add_library(api_lib STATIC 
+    HttpSrv.cpp 
+    HttpSrv.h
+    RouteGroup.h
+    routing/DeviceRoutes.h
+    routing/DeviceRoutes.cpp
+    routing/ScanRoutes.h
+    routing/ScanRoutes.cpp
+)
 
 target_include_directories(api_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(api_lib PUBLIC httplib PRIVATE nlohmann_json service_lib)
+target_link_libraries(api_lib PUBLIC httplib nlohmann_json service_lib)

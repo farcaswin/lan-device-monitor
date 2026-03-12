@@ -1,4 +1,7 @@
-add_library(scanner_lib STATIC NetworkScanner.cpp)
+add_library(scanner_lib STATIC 
+    NetworkScanner.cpp
+    NetworkScanner.h
+)
 
 target_include_directories(scanner_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <NetworkInfo.h>
-#include <Device.h>
+#include "NetworkInfo.h"
+#include "Device.h"
 
 class NetworkScanner {
 public:

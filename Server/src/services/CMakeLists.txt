@@ -1,4 +1,7 @@
-add_library(service_lib STATIC DeviceService.cpp)
+add_library(service_lib STATIC 
+    DeviceService.cpp
+    DeviceService.h
+)
 
 target_include_directories(service_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

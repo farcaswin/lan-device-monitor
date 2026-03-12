@@ -2,7 +2,8 @@
 #include "DeviceService.h"
 #include "NetworkScanner.h"
 #include "HttpSrv.h"
-#include "DeviceRoutes.h"
+#include "routing/DeviceRoutes.h"
+#include "routing/ScanRoutes.h"
 #include <iostream>
 
 int main() {
@@ -19,6 +20,7 @@ int main() {
 
     HttpSrv server("0.0.0.0", 8080);
     server.add_route_group(std::make_unique<DeviceRoutes>(device_service));
+    server.add_route_group(std::make_unique<ScanRoutes>(device_service));
     std::cout << "Server listening on http://localhost:8080\n";
     server.start();
 

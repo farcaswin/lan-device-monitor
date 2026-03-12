@@ -4,6 +4,8 @@
 /out/
 /bin/
 /lib/
+venv/
+.venv/
 
 # CMake generated files
 CMakeCache.txt
@@ -28,6 +30,10 @@ install_manifest.txt
 *.out
 *.app
 *.pdb
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Logs/temp
 *.log
